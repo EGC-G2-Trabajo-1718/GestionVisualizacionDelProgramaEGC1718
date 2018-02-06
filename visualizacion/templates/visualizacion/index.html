@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block section %}
+
+
+<br>
+<h1>Programa del evento</h1>
+<br>
+<a href="/charlas">
+    <button class="button">
+        Mostrar charlas
+    </button>
+</a>
+<table class="table-hover table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            <th style="text-align: center">Día</th>
+            <th style="text-align: center">Hora</th>
+            <th style="text-align: center">Título</th>
+            <th style="text-align: center">Código de sesión</th>
+        </tr>
+    </thead>
+
+    {% if programas %}
+    {% for programa in programas %}
+
+            <tr>
+                <td style="text-align: center">
+                    <a href="https://twitter.com/intent/tweet?text={{ programa.dia }}:%20{{ programa.hora_inicio }}%20-%20{{ programa.hora_fin }}%20{{ programa.titulo }}" class="twitter-share-button" data-show-count="false">Tweet
+                   </a><script async defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+                </td>
+                <td width="200" style="text-align: center">{{ programa.dia }} - {{ programa.fecha }}</td>
+
+                <td width="200" style="text-align: center">{{ programa.hora_inicio }} - {{ programa.hora_fin }}</td>
+                    {% if programa.titulo %}
+                     <td width="200" style="text-align: center">{{ programa.titulo }} </td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                {% if programa.sessioncode %}
+                <td width="200" style="text-align: center">{{ programa.sessioncode }} </td>
+                {% endif %}
+
+            </tr>
+        </tbody>
+    {% endfor %}
+
+    <div class="pagination">
+    <span class="step-links">
+        {% if programas.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ programas.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ programas.number }} of {{ programas.paginator.num_pages }}.
+        </span>
+
+        {% if programas.has_next %}
+            <a href="?page={{ programas.next_page_number }}">next</a>
+            <a href="?page={{ programas.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+    {% else %}
+    <h1>NO HAY REGISTROS</h1>
+    {% endif %}
+
+</table>
+<br>
+{% endblock %}

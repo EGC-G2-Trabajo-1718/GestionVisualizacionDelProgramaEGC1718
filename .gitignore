@@ -1,0 +1,9 @@
+.idea/
+.idea/*
+*.pyc
+visualizacion/*.pyc
+visualizacion/migrations/
+env/
+env/*
+venv/
+venv/*
